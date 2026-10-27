@@ -1,14 +1,52 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { SneakerComparisonSlider } from "./SneakerComparisonSlider";
 
+const TYPING_WORDS = [
+  "KAMI SIKAT.",
+  "DEEP CLEAN.",
+  "UNYELLOWING.",
+  "FAST CLEAN.",
+  "KINCLONG 100%.",
+];
+
 export function Hero() {
   const showcaseRef = React.useRef<HTMLDivElement>(null);
   const textColRef = React.useRef<HTMLDivElement>(null);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplayedText(TYPING_WORDS[0]);
+      return;
+    }
+
+    const currentWord = TYPING_WORDS[wordIndex];
+    const isWordComplete = !isDeleting && displayedText === currentWord;
+    const isWordEmpty = isDeleting && displayedText === "";
+    const delay = isWordComplete ? 2000 : isDeleting ? 45 : 95;
+
+    const timer = setTimeout(() => {
+      if (isWordComplete) {
+        setIsDeleting(true);
+      } else if (isWordEmpty) {
+        setIsDeleting(false);
+        setWordIndex((prev) => (prev + 1) % TYPING_WORDS.length);
+      } else if (!isDeleting) {
+        setDisplayedText(currentWord.substring(0, displayedText.length + 1));
+      } else {
+        setDisplayedText(currentWord.substring(0, displayedText.length - 1));
+      }
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, wordIndex]);
 
   useEffect(() => {
     // Parallax depth scroll effect
@@ -100,11 +138,15 @@ export function Hero() {
       <div className="max-w-[1140px] mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-8 lg:gap-12 items-center">
         {/* Left Column: Copy & Actions */}
         <div ref={textColRef} className="flex flex-col gap-4 sm:gap-5 will-change-transform">
-          {/* Main Display Headline (Punchy 2-line title) */}
+          {/* Main Display Headline with Typing Animation */}
           <h1 className="text-[2.2rem] min-[390px]:text-[2.5rem] sm:text-5xl lg:text-6xl font-black text-ink tracking-tight leading-[1.08]">
             <span className="block">SEPATU KOTOR?</span>
-            <span className="inline-block bg-yellow-pop text-ink px-3 sm:px-4 py-0.5 border-3 sm:border-4 border-ink rounded-md shadow-neo mt-1.5 sm:mt-2 -rotate-1 hover:rotate-0 transition-transform duration-200 cursor-default select-none">
-              SINI SUDAH, KUSIKAT!
+            <span className="inline-flex items-center bg-yellow-pop text-ink px-3 sm:px-4 py-0.5 border-3 sm:border-4 border-ink rounded-md shadow-neo mt-1.5 sm:mt-2 -rotate-1 hover:rotate-0 transition-transform duration-200 cursor-default select-none whitespace-nowrap min-h-[1.22em] w-fit">
+              <span>{displayedText || "\u00A0"}</span>
+              <span
+                className="inline-block w-[3px] sm:w-[4px] h-[0.75em] bg-ink ml-1.5 align-middle animate-pulse" /* taste-skill-ignore */
+                aria-hidden="true"
+              />
             </span>
           </h1>
 
