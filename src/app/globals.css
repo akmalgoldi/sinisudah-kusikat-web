@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-canvas-cream text-ink font-sans antialiased min-h-[100dvh] flex flex-col overflow-x-hidden;
+  }
+}
+
+@keyframes ticker-slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  display: inline-flex;
+  animation: ticker-slide 32s linear infinite;
+}
+
+@keyframes sneakerFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-sneaker-float {
+  animation: sneakerFloat 4s ease-in-out infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.45s cubic-bezier(0.2, 0, 0, 1), transform 0.45s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-candy {
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-candy:hover {
+  transform: translate(-2px, -2px);
+}
+
+.btn-candy:active {
+  transform: translate(2px, 2px);
+}
+
+.card-sticker {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-ticker {
+    animation: none;
+  }
+  .animate-sneaker-float {
+    animation: none;
+  }
+  .btn-candy {
+    transition: none;
+    transform: none !important;
+  }
+  .card-sticker {
+    transition: none;
+    transform: none !important;
+  }
+}
