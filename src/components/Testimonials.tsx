@@ -63,15 +63,15 @@ export function Testimonials() {
   return (
     <section
       id="testimoni"
-      className="bg-canvas-cream border-b-2.5 border-ink py-14 md:py-20 px-3 sm:px-6 lg:px-8 w-full overflow-hidden"
+      className="bg-canvas-cream border-b-2.5 border-ink py-16 md:py-20 px-4 sm:px-6 lg:px-8 w-full overflow-hidden"
     >
       <div className="max-w-[1140px] mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-8 md:mb-10">
+        {/* Section Header with Reveal Animation */}
+        <div className="reveal text-center mb-8 md:mb-10">
           <div className="inline-flex items-center gap-2 bg-yellow-pop text-ink border-2 border-ink px-3 py-1 rounded-sm shadow-neo-sm font-black text-xs uppercase tracking-wider mb-2.5">
-            {/* Neo-Geometric 4-point sparkle icon */}
+            {/* Neo-Geometric 4-point sparkle icon with subtle pulse */}
             <svg
-              className="w-3.5 h-3.5 fill-ink"
+              className="w-3.5 h-3.5 fill-ink animate-pulse"
               viewBox="0 0 24 24"
               aria-hidden="true"
             >
@@ -80,77 +80,85 @@ export function Testimonials() {
             <span>DOKUMENTASI PELANGGAN</span>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-ink tracking-tight uppercase leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-ink tracking-tight uppercase leading-tight">
             SEPATU BERSIH,{" "}
             <span className="inline-block bg-brand-red text-white px-2.5 sm:px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm -rotate-1">
               SIAP PAKAI LAGI.
             </span>
           </h2>
 
-          <p className="text-xs sm:text-base text-gray-700 max-w-xl mx-auto mt-2.5 leading-relaxed font-medium">
+          <p className="text-sm sm:text-base text-gray-700 max-w-xl mx-auto mt-2.5 leading-relaxed font-medium">
             Beberapa dokumentasi sepatu pelanggan yang sudah beres kita sikat dan siap diambil atau diantar.
           </p>
 
           {/* Mobile Swipe Hint */}
           <div className="md:hidden flex items-center justify-center gap-1.5 text-[11px] text-gray-500 font-bold mt-3">
-            <span>&larr;</span>
+            <span className="animate-pulse">&larr;</span>
             <span>Geser ke samping untuk melihat foto</span>
-            <span>&rarr;</span>
+            <span className="animate-pulse">&rarr;</span>
           </div>
         </div>
 
         {/* Stories Grid / Mobile Horizontal Scroll Container */}
         <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory gap-3.5 sm:gap-4 md:gap-5 pb-4 md:pb-0 px-1 sm:px-2 md:px-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden items-stretch">
-          {TESTIMONIALS.map((item) => (
+          {TESTIMONIALS.map((item, index) => (
             <div
               key={item.id}
-              className={`w-[220px] sm:w-[240px] md:w-auto shrink-0 snap-center bg-white border-2.5 border-ink rounded-md p-2.5 sm:p-3 shadow-neo hover:shadow-neo-lg ${item.rotationClass} hover:rotate-0 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between`}
+              style={{ transitionDelay: `${index * 60}ms` }}
+              className={`group card-sticker w-[235px] sm:w-[250px] md:w-auto shrink-0 snap-center bg-white border-2.5 border-ink rounded-md p-2.5 sm:p-3 shadow-neo md:${item.rotationClass} md:hover:rotate-0 md:hover:-translate-y-2 md:hover:shadow-neo-lg active:scale-[0.99] transition-all duration-300 flex flex-col justify-between select-none cursor-pointer`}
             >
               {/* Instagram Story Top Mockup Bar */}
-              <div className="flex items-center justify-between pb-2 border-b-2 border-gray-100">
-                <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-100">
+                <div className="relative">
                   <img
                     src="/assets/images/logo.png"
                     alt="Logo Sinisudah.Kusikat"
-                    className="w-6 h-6 rounded-full border border-ink object-contain bg-white shrink-0"
+                    className="w-6 h-6 rounded-full border border-ink object-contain bg-white shrink-0 group-hover:scale-105 transition-transform duration-300"
                     width={24}
                     height={24}
                   />
-                  <div className="flex flex-col text-left">
-                    <span className="text-[11px] font-black text-ink tracking-tight leading-none">
-                      sinisudah.kusikat
-                    </span>
-                    <span className="text-[9px] text-gray-500 font-bold leading-tight mt-0.5">
-                      {item.date}
-                    </span>
-                  </div>
+                  {/* Subtle active status indicator */}
+                  <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-white" />
                 </div>
-
-                <span
-                  className={`${item.tagColor} ${
-                    item.tagTextColor || "text-ink"
-                  } font-black text-[9px] tracking-wider px-1.5 py-0.5 rounded-xs border border-ink shadow-neo-xs`}
-                >
-                  {item.tag}
-                </span>
+                <div className="flex flex-col text-left min-w-0">
+                  <span className="text-xs font-black text-ink tracking-tight leading-none truncate group-hover:text-brand-red transition-colors duration-200">
+                    sinisudah.kusikat
+                  </span>
+                  <span className="text-[10px] text-gray-500 font-bold leading-tight mt-0.5">
+                    Story &bull; {item.date}
+                  </span>
+                </div>
               </div>
 
-              {/* Story Photograph (Compact 4:5 ratio) */}
+              {/* Story Photograph (Compact 4:5 with Smooth Zoom Animation on Hover) */}
               <div className="relative w-full aspect-[4/5] rounded-xs overflow-hidden border-2 border-ink bg-slate-900 mt-2.5 shadow-inner">
                 <img
                   src={item.image}
                   alt={item.alt}
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover object-center pointer-events-none transform group-hover:scale-105 transition-transform duration-500 ease-out"
                   loading="lazy"
                   width={600}
                   height={750}
                 />
+
+                {/* Corner Sticker Badge with Micro-Pop Animation on Hover */}
+                <div className="absolute top-2 right-2 pointer-events-none transform group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300 ease-out">
+                  <span
+                    className={`${item.tagColor} ${
+                      item.tagTextColor || "text-ink"
+                    } font-black text-[9px] tracking-wider px-2 py-0.5 rounded-xs border-1.5 border-ink shadow-neo-xs inline-block uppercase`}
+                  >
+                    {item.tag}
+                  </span>
+                </div>
               </div>
 
-              {/* Bottom Caption */}
+              {/* Bottom Caption Bar */}
               <div className="pt-2 flex items-center justify-between text-[11px] font-bold text-ink border-t-2 border-gray-100 mt-2">
-                <span className="text-gray-700 truncate pr-1">{item.caption}</span>
-                <span className="text-brand-red font-black tracking-wider text-[10px] uppercase shrink-0">
+                <span className="text-gray-700 truncate pr-1 group-hover:text-ink transition-colors">
+                  {item.caption}
+                </span>
+                <span className="text-brand-red font-black tracking-wider text-[10px] uppercase shrink-0 group-hover:underline">
                   Sinisudah
                 </span>
               </div>
@@ -164,7 +172,7 @@ export function Testimonials() {
             href="https://www.instagram.com/sinisudah.kusikat"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-yellow-pop hover:bg-yellow-card text-ink font-black text-xs sm:text-sm py-2.5 sm:py-3 px-5 sm:px-7 rounded-md border-2.5 border-ink shadow-neo hover:shadow-neo-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-neo-xs transition-all uppercase tracking-wide"
+            className="btn-candy inline-flex items-center gap-2 bg-yellow-pop hover:bg-yellow-card text-ink font-black text-xs sm:text-sm py-2.5 sm:py-3 px-5 sm:px-7 rounded-md border-2.5 border-ink shadow-neo hover:shadow-neo-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-neo-xs uppercase tracking-wide"
             title="Buka Instagram resmi @sinisudah.kusikat"
           >
             <span>Lihat Dokumentasi Lainnya di Instagram @sinisudah.kusikat</span>
