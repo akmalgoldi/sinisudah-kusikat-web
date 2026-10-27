@@ -63,26 +63,38 @@ export function Testimonials() {
   return (
     <section
       id="testimoni"
-      className="bg-canvas-cream border-b-2.5 border-ink py-16 md:py-20 px-4 sm:px-6 lg:px-8 w-full overflow-hidden"
+      className="relative bg-[#FFF4BD] bg-neo-blueprint border-b-3 border-ink py-16 md:py-20 px-4 sm:px-6 lg:px-8 w-full overflow-hidden"
     >
-      <div className="max-w-[1140px] mx-auto">
+      {/* Neubrutalist Decorative Background Shapes */}
+      <div
+        aria-hidden="true"
+        data-parallax="-0.1"
+        className="hidden sm:block pointer-events-none select-none absolute top-10 right-8 w-12 h-12 bg-white border-2.5 border-ink rounded-[6px] rotate-12 shadow-neo-xs"
+      />
+      <div
+        aria-hidden="true"
+        data-parallax="0.1"
+        className="hidden sm:block pointer-events-none select-none absolute bottom-10 left-8 w-12 h-12 bg-brand-red border-2.5 border-ink rounded-[6px] -rotate-6 shadow-neo-xs"
+      />
+
+      <div className="max-w-[1140px] mx-auto relative z-10">
         {/* Section Header with Reveal Animation */}
-        <div className="reveal text-center mb-8 md:mb-10">
-          <div className="inline-flex items-center gap-2 bg-yellow-pop text-ink border-2 border-ink px-3 py-1 rounded-sm shadow-neo-sm font-black text-xs uppercase tracking-wider mb-2.5">
-            {/* Neo-Geometric 4-point sparkle icon with subtle pulse */}
+        <div className="reveal-header text-center mb-8 md:mb-10">
+          <div className="sticker-pop inline-flex items-center gap-2 bg-white text-ink border-2 border-ink px-3 py-1 rounded-[6px] shadow-neo-xs font-black text-xs mb-3">
+            {/* Neo-Geometric 4-point sparkle icon */}
             <svg
-              className="w-3.5 h-3.5 fill-ink animate-pulse"
+              className="w-3.5 h-3.5 fill-brand-red"
               viewBox="0 0 24 24"
               aria-hidden="true"
             >
               <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" />
             </svg>
-            <span>DOKUMENTASI PELANGGAN</span>
+            <span>04 // DOKUMENTASI PELANGGAN</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-ink tracking-tight uppercase leading-tight">
             SEPATU BERSIH,{" "}
-            <span className="inline-block bg-brand-red text-white px-2.5 sm:px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm -rotate-1">
+            <span className="sticker-pop inline-block bg-brand-red text-white px-2.5 sm:px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm -rotate-1">
               SIAP PAKAI LAGI.
             </span>
           </h2>
@@ -99,13 +111,17 @@ export function Testimonials() {
           </div>
         </div>
 
-        {/* Stories Grid / Mobile Horizontal Scroll Container */}
+        {/* Stories Grid / Mobile Horizontal Scroll Container with Staggered Reveal */}
         <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory gap-3.5 sm:gap-4 md:gap-5 pb-4 md:pb-0 px-1 sm:px-2 md:px-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden items-stretch">
           {TESTIMONIALS.map((item, index) => (
-            <div
+            <a
               key={item.id}
-              style={{ transitionDelay: `${index * 60}ms` }}
-              className={`group card-sticker w-[235px] sm:w-[250px] md:w-auto shrink-0 snap-center bg-white border-2.5 border-ink rounded-md p-2.5 sm:p-3 shadow-neo md:${item.rotationClass} md:hover:rotate-0 md:hover:-translate-y-2 md:hover:shadow-neo-lg active:scale-[0.99] transition-all duration-300 flex flex-col justify-between select-none cursor-pointer`}
+              href="https://www.instagram.com/sinisudah.kusikat"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Lihat dokumentasi ${item.caption} di Instagram @sinisudah.kusikat`}
+              style={{ transitionDelay: `${index * 130}ms` }}
+              className={`reveal group card-sticker w-[235px] sm:w-[250px] md:w-auto shrink-0 snap-center bg-white border-2.5 border-ink rounded-md p-2.5 sm:p-3 shadow-neo ${item.rotationClass} md:hover:rotate-0 md:hover:-translate-y-2 md:hover:shadow-neo-lg active:scale-[0.99] flex flex-col justify-between select-none cursor-pointer`}
             >
               {/* Instagram Story Top Mockup Bar */}
               <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-100">
@@ -131,7 +147,7 @@ export function Testimonials() {
               </div>
 
               {/* Story Photograph (Compact 4:5 with Smooth Zoom Animation on Hover) */}
-              <div className="relative w-full aspect-[4/5] rounded-xs overflow-hidden border-2 border-ink bg-slate-900 mt-2.5 shadow-inner">
+              <div className="relative w-full aspect-[4/5] rounded-xs overflow-hidden border-2 border-ink bg-slate-900 mt-2.5">
                 <img
                   src={item.image}
                   alt={item.alt}
@@ -146,7 +162,7 @@ export function Testimonials() {
                   <span
                     className={`${item.tagColor} ${
                       item.tagTextColor || "text-ink"
-                    } font-black text-[9px] tracking-wider px-2 py-0.5 rounded-xs border-1.5 border-ink shadow-neo-xs inline-block uppercase`}
+                    } font-black text-[10px] px-2 py-0.5 rounded-xs border-1.5 border-ink shadow-neo-xs inline-block`}
                   >
                     {item.tag}
                   </span>
@@ -158,11 +174,11 @@ export function Testimonials() {
                 <span className="text-gray-700 truncate pr-1 group-hover:text-ink transition-colors">
                   {item.caption}
                 </span>
-                <span className="text-brand-red font-black tracking-wider text-[10px] uppercase shrink-0 group-hover:underline">
-                  Sinisudah
+                <span className="text-brand-red font-black text-[10px] shrink-0 group-hover:underline">
+                  Sinisudah &rarr;
                 </span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
@@ -172,7 +188,7 @@ export function Testimonials() {
             href="https://www.instagram.com/sinisudah.kusikat"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-candy inline-flex items-center gap-2 bg-yellow-pop hover:bg-yellow-card text-ink font-black text-xs sm:text-sm py-2.5 sm:py-3 px-5 sm:px-7 rounded-md border-2.5 border-ink shadow-neo hover:shadow-neo-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-neo-xs uppercase tracking-wide"
+            className="btn-candy inline-flex items-center gap-2 bg-yellow-pop hover:bg-yellow-card text-ink font-black text-sm py-2.5 sm:py-3 px-5 sm:px-7 rounded-md border-2.5 border-ink shadow-neo hover:shadow-neo-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-neo-xs"
             title="Buka Instagram resmi @sinisudah.kusikat"
           >
             <span>Lihat Dokumentasi Lainnya di Instagram @sinisudah.kusikat</span>

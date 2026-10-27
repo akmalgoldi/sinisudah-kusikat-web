@@ -1,31 +1,86 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 @layer base {
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
-    @apply bg-canvas-cream text-ink font-sans antialiased min-h-[100dvh] flex flex-col overflow-x-hidden;
+    background-color: #FAF6EB;
+    color: #111111;
+    font-family: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: clip;
   }
+}
+
+/* ==========================================================================
+   NEUBRUTALISM ARCHITECTURAL BACKGROUND PATTERNS
+   Cohesive warm workshop palette (#FAF6EB, #FFF5C2, #FDECEC, #F4EBDC, #FFE600)
+   with crisp #111111 ink geometric textures.
+   ========================================================================== */
+
+/* 1. Crisp Dot Matrix (Hero, Gallery) */
+.bg-neo-dots {
+  background-image: radial-gradient(rgba(17, 17, 17, 0.16) 1.35px, transparent 1.35px);
+  background-size: 22px 22px;
+}
+
+/* 2. Dense Dot Matrix for Yellow Pop surfaces (Pickup) */
+.bg-neo-dots-strong {
+  background-image: radial-gradient(rgba(17, 17, 17, 0.2) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+/* 3. Workshop Blueprint Square Grid (Services, FAQ, Location) */
+.bg-neo-grid {
+  background-image:
+    linear-gradient(to right, rgba(17, 17, 17, 0.065) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(17, 17, 17, 0.065) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+/* 4. Technical Dual-Grid + Sub-dots (Stats, Testimonials) */
+.bg-neo-blueprint {
+  background-image:
+    radial-gradient(rgba(17, 17, 17, 0.18) 1.25px, transparent 1.25px),
+    linear-gradient(to right, rgba(17, 17, 17, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 17, 17, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* 5. Diagonal Drafting Lines (Comparison) */
+.bg-neo-diagonal {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(17, 17, 17, 0.045) 0px,
+    rgba(17, 17, 17, 0.045) 2px,
+    transparent 2px,
+    transparent 16px
+  );
 }
 
 @keyframes ticker-slide {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 .animate-ticker {
   display: inline-flex;
   animation: ticker-slide 32s linear infinite;
+  will-change: transform;
 }
 
 @keyframes sneakerFloat {
@@ -41,15 +96,150 @@
   animation: sneakerFloat 4s ease-in-out infinite;
 }
 
+/* ==========================================================================
+   NEUBRUTALIST SCROLL CHOREOGRAPHY (60FPS GPU-ACCELERATED)
+   Layer 1: Section Header & Tactile Sticker Pop (.reveal-header + .sticker-pop)
+   Layer 2: 3D Card Pop & Hard-Shadow Grow (.reveal)
+   Layer 3: Sequential Point Cascade (.cascade-item)
+   ========================================================================== */
+
+/* Layer 1: Section Headers & Sticker Slap */
+.reveal-header {
+  opacity: 0;
+  translate: 0 22px;
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-header:not(.is-visible) {
+  will-change: translate, opacity;
+}
+
+.reveal-header.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.reveal-header .sticker-pop {
+  opacity: 0;
+  translate: 0 10px;
+  scale: 0.86;
+  rotate: -5deg;
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.12s,
+    translate 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.12s,
+    scale 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.12s,
+    rotate 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.12s,
+    box-shadow 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.22s;
+}
+
+.reveal-header:not(.is-visible) .sticker-pop {
+  box-shadow: 0px 0px 0px #111111;
+  will-change: translate, scale, rotate, opacity;
+}
+
+.reveal-header.is-visible .sticker-pop {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+  rotate: var(--sticker-angle, 0deg);
+}
+
+/* Layer 2: 3D Card Reveal + Hard-Shadow Pop-Out */
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.45s cubic-bezier(0.2, 0, 0, 1), transform 0.45s cubic-bezier(0.2, 0, 0, 1);
+  translate: 0 28px;
+  scale: 0.965;
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.14s;
+}
+
+.reveal.is-settled {
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.reveal:not(.is-visible) {
+  box-shadow: 0px 0px 0px #111111;
+  will-change: translate, scale, opacity, box-shadow;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  translate: 0 0;
+  scale: 1;
+}
+
+/* Directional Card Variants (Left / Right Lock-In) */
+.reveal-left:not(.is-visible) {
+  translate: -18px 24px;
+}
+
+.reveal-right:not(.is-visible) {
+  translate: 18px 24px;
+}
+
+/* Layer 3: Sequential Cascade Items inside Cards / Lists */
+.cascade-item {
+  opacity: 0;
+  translate: -10px 12px;
+  scale: 0.97;
+  transition:
+    opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.52s cubic-bezier(0.22, 1, 0.36, 1),
+    scale 0.52s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--cascade-idx, 0) * 80ms + 140ms);
+}
+
+.is-settled .cascade-item,
+.cascade-item.is-settled {
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+  transition-delay: 0ms;
+}
+
+.reveal:not(.is-visible) .cascade-item,
+.cascade-group:not(.is-visible) .cascade-item {
+  box-shadow: 0px 0px 0px #111111;
+  will-change: translate, scale, opacity;
+}
+
+.reveal.is-visible .cascade-item,
+.cascade-group.is-visible .cascade-item {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+}
+
+/* Hero Exit Deck / Curtain Slide-Up Transition */
+.curtain-deck {
+  opacity: 0;
+  translate: 0 32px;
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.curtain-deck:not(.is-visible) {
+  will-change: translate, opacity;
+}
+
+.curtain-deck.is-visible {
+  opacity: 1;
+  translate: 0 0;
 }
 
 .btn-candy {
@@ -69,10 +259,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  .reveal,
+  .reveal-header,
+  .reveal-header .sticker-pop,
+  .cascade-item,
+  .curtain-deck {
+    opacity: 1 !important;
+    transform: none !important;
+    translate: none !important;
+    scale: none !important;
+    rotate: none !important;
+    transition: none !important;
   }
   .animate-ticker {
     animation: none;

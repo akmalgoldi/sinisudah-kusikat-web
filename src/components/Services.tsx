@@ -1,6 +1,7 @@
 import React from "react";
-import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button";
 import { Badge } from "./ui/badge";
+import { cn } from "@/lib/utils";
 
 export function Services() {
   const services = [
@@ -49,12 +50,28 @@ export function Services() {
   ];
 
   return (
-    <section id="layanan" className="bg-canvas-cream border-b-2.5 border-ink py-16 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
-      <div className="max-w-[1140px] mx-auto">
-        <div className="text-center mb-14">
+    <section id="layanan" className="relative bg-[#FAF6EB] bg-neo-grid border-b-3 border-ink py-16 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
+      {/* Neubrutalist Decorative Background Shapes */}
+      <div
+        aria-hidden="true"
+        data-parallax="-0.12"
+        className="hidden sm:block pointer-events-none select-none absolute top-10 -left-5 w-16 h-16 bg-yellow-pop border-2.5 border-ink rounded-[8px] rotate-12 shadow-neo-sm"
+      />
+      <div
+        aria-hidden="true"
+        data-parallax="0.12"
+        className="hidden sm:block pointer-events-none select-none absolute bottom-12 -right-5 w-14 h-14 bg-brand-red border-2.5 border-ink rounded-[8px] -rotate-12 shadow-neo-sm"
+      />
+
+      <div className="max-w-[1140px] mx-auto relative z-10">
+        <div className="reveal-header text-center mb-14">
+          <div className="sticker-pop inline-flex items-center gap-2 bg-white text-ink border-2 border-ink px-3 py-1 rounded-[6px] shadow-neo-xs font-black text-xs mb-3">
+            <span className="w-2 h-2 rounded-full bg-brand-red border border-ink" />
+            <span>01 // LAYANAN &amp; TARIF</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-ink tracking-tight uppercase">
             PILIH PERAWATAN{" "}
-            <span className="inline-block bg-yellow-pop text-ink px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm">
+            <span className="sticker-pop inline-block bg-yellow-pop text-ink px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm">
               SEPATUMU.
             </span>
           </h2>
@@ -70,6 +87,7 @@ export function Services() {
           {services.map((s, idx) => (
             <div
               key={s.id}
+              style={{ transitionDelay: `${idx * 140}ms` }}
               className={`reveal relative ${s.cardBg} border-2.5 border-ink rounded-xl p-6 sm:p-7 flex flex-col justify-between shadow-neo-md hover:-translate-y-1 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop ${
                 idx === 2 ? "md:col-span-2 lg:col-span-1 md:max-w-md md:mx-auto md:w-full lg:max-w-none" : ""
               }`}
@@ -138,27 +156,27 @@ export function Services() {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full"
+                  className={cn(
+                    buttonVariants({
+                      variant: s.id === "deep-clean" ? "brand" : "primary",
+                      size: "full",
+                    }),
+                    "text-sm sm:text-base font-black px-4 py-3 flex items-center justify-center gap-2.5"
+                  )}
                 >
-                  <Button
-                    variant={s.id === "deep-clean" ? "brand" : "primary"}
-                    size="full"
-                    className="text-sm sm:text-base font-black px-4 py-3 flex items-center justify-center gap-2.5"
+                  <span>
+                    {s.id === "fast-clean" && "Pesan Fast Clean"}
+                    {s.id === "deep-clean" && "Pesan Deep Clean"}
+                    {s.id === "unyellowing-repaint" && "Pesan Restorasi"}
+                  </span>
+                  <span
+                    className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-sm font-black border border-ink shadow-neo-xs ${
+                      s.id === "deep-clean" ? "bg-white text-ink" : "bg-yellow-pop text-ink"
+                    }`}
+                    aria-hidden="true"
                   >
-                    <span>
-                      {s.id === "fast-clean" && "Pesan Fast Clean"}
-                      {s.id === "deep-clean" && "Pesan Deep Clean"}
-                      {s.id === "unyellowing-repaint" && "Pesan Restorasi"}
-                    </span>
-                    <span
-                      className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-sm font-black border border-ink shadow-neo-xs ${
-                        s.id === "deep-clean" ? "bg-white text-ink" : "bg-yellow-pop text-ink"
-                      }`}
-                      aria-hidden="true"
-                    >
-                      &rarr;
-                    </span>
-                  </Button>
+                    &rarr;
+                  </span>
                 </a>
               </div>
             </div>

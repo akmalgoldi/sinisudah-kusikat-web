@@ -1,18 +1,35 @@
 import React from "react";
-import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 export function Pickup() {
   const waUrl =
     "https://wa.me/6285348085177?text=Halo%20Sinisudah.Kusikat%2C%20saya%20ingin%20menanyakan%20layanan%20pick-up%20%26%20delivery%20untuk%20lokasi%20saya.";
 
   return (
-    <section id="antar-jemput" className="bg-yellow-pop border-b-2.5 border-ink py-16 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
-      <div className="max-w-[1140px] mx-auto">
+    <section id="antar-jemput" className="relative bg-yellow-pop bg-neo-dots-strong border-b-3 border-ink py-16 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
+      {/* Neubrutalist Decorative Background Shapes */}
+      <div
+        aria-hidden="true"
+        data-parallax="-0.12"
+        className="hidden sm:block pointer-events-none select-none absolute top-12 -left-4 w-14 h-14 bg-white border-2.5 border-ink rounded-[8px] rotate-6 shadow-neo-xs"
+      />
+      <div
+        aria-hidden="true"
+        data-parallax="0.12"
+        className="hidden sm:block pointer-events-none select-none absolute bottom-12 -right-4 w-14 h-14 bg-brand-red border-2.5 border-ink rounded-[8px] -rotate-12 shadow-neo-xs"
+      />
+
+      <div className="max-w-[1140px] mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-14">
+        <div className="reveal-header text-center mb-10 sm:mb-14">
+          <div className="sticker-pop inline-flex items-center gap-2 bg-white text-ink border-2 border-ink px-3 py-1 rounded-[6px] shadow-neo-xs font-black text-xs mb-3">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 border border-ink" />
+            <span>05 // LAYANAN KURIR</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-ink uppercase tracking-tight">
             ANTAR-JEMPUT{" "}
-            <span className="inline-block bg-brand-red text-white px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm">
+            <span className="sticker-pop inline-block bg-brand-red text-white px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm">
               SEPATU.
             </span>
           </h2>
@@ -47,7 +64,7 @@ export function Pickup() {
           {/* 3 Step Route Ribbon */}
           <div className="bg-[#FAF6EB] border-2 border-ink rounded-md p-4 sm:p-5 mb-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <div className="flex items-start gap-3">
+              <div className="cascade-item flex items-start gap-3">
                 <div className="w-9 h-9 rounded-full bg-white border-2 border-ink flex items-center justify-center shrink-0 shadow-neo-sm">
                   <svg className="w-5 h-5 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -59,7 +76,7 @@ export function Pickup() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="cascade-item flex items-start gap-3">
                 <div className="w-9 h-9 rounded-full bg-yellow-pop border-2 border-ink flex items-center justify-center shrink-0 shadow-neo-sm">
                   <svg className="w-5 h-5 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -71,7 +88,7 @@ export function Pickup() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="cascade-item flex items-start gap-3">
                 <div className="w-9 h-9 rounded-full bg-white border-2 border-ink flex items-center justify-center shrink-0 shadow-neo-sm">
                   <svg className="w-5 h-5 text-brand-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -88,7 +105,7 @@ export function Pickup() {
           {/* 3 Zone Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Zone 1 */}
-            <div className="bg-[#FFFDE7] border-2.5 border-ink rounded-xl p-5 sm:p-6 flex flex-col justify-between shadow-neo-md hover:-translate-y-1 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop">
+            <div className="cascade-item bg-[#FFFDE7] border-2.5 border-ink rounded-xl p-5 sm:p-6 flex flex-col justify-between shadow-neo-md hover:-translate-y-1 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop">
               <div>
                 <span className="text-sm font-black text-ink block mb-2">
                   Zona 1 (Radius 1–3 KM)
@@ -108,7 +125,7 @@ export function Pickup() {
             </div>
 
             {/* Zone 2 */}
-            <div className="bg-white border-2.5 border-ink rounded-xl p-5 sm:p-6 flex flex-col justify-between shadow-neo-md hover:-translate-y-1 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop">
+            <div className="cascade-item bg-white border-2.5 border-ink rounded-xl p-5 sm:p-6 flex flex-col justify-between shadow-neo-md hover:-translate-y-1 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop">
               <div>
                 <span className="text-sm font-black text-ink block mb-2">
                   Zona 2 (Balikpapan Tengah &amp; Utara)
@@ -128,7 +145,7 @@ export function Pickup() {
             </div>
 
             {/* Zone 3 */}
-            <div className="bg-white border-2.5 border-ink rounded-xl p-5 sm:p-6 flex flex-col justify-between shadow-neo-md hover:-translate-y-1 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop">
+            <div className="cascade-item bg-white border-2.5 border-ink rounded-xl p-5 sm:p-6 flex flex-col justify-between shadow-neo-md hover:-translate-y-1 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop">
               <div>
                 <span className="text-sm font-black text-ink block mb-2">
                   Zona 3 (Balikpapan Selatan &amp; Timur)
@@ -157,17 +174,14 @@ export function Pickup() {
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block w-full sm:w-auto shrink-0"
               aria-label="Pesan Layanan Antar-Jemput via WhatsApp"
+              className={cn(
+                buttonVariants({ variant: "brand", size: "lg" }),
+                "w-full sm:w-auto shrink-0 text-base font-black px-7 py-3.5 flex items-center justify-center gap-3"
+              )}
             >
-              <Button
-                variant="brand"
-                size="lg"
-                className="w-full sm:w-auto text-base font-black px-7 py-3.5 flex items-center justify-center gap-3"
-              >
-                <span>Jadwalkan Antar-Jemput via WA</span>
-                <span className="w-7 h-7 rounded-full bg-white text-ink flex items-center justify-center shrink-0 text-sm font-black border border-ink shadow-neo-xs" aria-hidden="true">&rarr;</span>
-              </Button>
+              <span>Jadwalkan Antar-Jemput via WA</span>
+              <span className="w-7 h-7 rounded-full bg-white text-ink flex items-center justify-center shrink-0 text-sm font-black border border-ink shadow-neo-xs" aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </div>

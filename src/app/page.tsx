@@ -14,10 +14,10 @@ import { MotionObserver } from "@/components/MotionObserver";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-[100dvh] w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-[100dvh] w-full">
       <MotionObserver />
       <Header />
-      <main className="flex-1 w-full overflow-x-hidden">
+      <main className="flex-1 w-full overflow-x-clip">
         <Hero />
         <Ticker />
         <Stats />

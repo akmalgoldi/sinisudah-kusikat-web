@@ -33,12 +33,28 @@ export function Faq() {
   };
 
   return (
-    <section id="faq" className="bg-canvas-white border-b-2.5 border-ink py-16 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
-      <div className="max-w-[820px] mx-auto">
-        <div className="text-center mb-12">
+    <section id="faq" className="relative bg-[#F3E9D2] bg-neo-grid border-b-3 border-ink py-16 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
+      {/* Neubrutalist Decorative Background Shapes */}
+      <div
+        aria-hidden="true"
+        data-parallax="-0.1"
+        className="hidden sm:block pointer-events-none select-none absolute top-14 right-8 w-12 h-12 bg-yellow-pop border-2.5 border-ink rounded-[6px] rotate-12 shadow-neo-xs"
+      />
+      <div
+        aria-hidden="true"
+        data-parallax="0.1"
+        className="hidden sm:block pointer-events-none select-none absolute bottom-14 left-8 w-12 h-12 bg-brand-red border-2.5 border-ink rounded-[6px] -rotate-12 shadow-neo-xs"
+      />
+
+      <div className="max-w-[820px] mx-auto relative z-10">
+        <div className="reveal-header text-center mb-12">
+          <div className="sticker-pop inline-flex items-center gap-2 bg-white text-ink border-2 border-ink px-3 py-1 rounded-[6px] shadow-neo-xs font-black text-xs mb-3">
+            <span className="w-2 h-2 rounded-full bg-brand-red border border-ink" />
+            <span>06 // PUSAT INFORMASI</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-ink tracking-tight uppercase">
             TANYA JAWAB{" "}
-            <span className="inline-block bg-yellow-pop text-ink px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm">
+            <span className="sticker-pop inline-block bg-yellow-pop text-ink px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm">
               FAQ.
             </span>
           </h2>
@@ -56,7 +72,7 @@ export function Faq() {
             return (
               <div
                 key={idx}
-                className={`border-2.5 border-ink rounded-xl overflow-hidden transition-all duration-300 shadow-neo hover:-translate-y-0.5 hover:shadow-neo-md ${
+                className={`cascade-item border-2.5 border-ink rounded-xl overflow-hidden transition-all duration-300 shadow-neo hover:-translate-y-0.5 hover:shadow-neo-md ${
                   isOpen ? "bg-yellow-card shadow-neo-md -translate-y-0.5" : "bg-white"
                 }`}
               >

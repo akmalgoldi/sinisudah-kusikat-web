@@ -65,6 +65,7 @@ const config: Config = {
         "neo-dark": "4px 4px 0px #000000",
       },
       borderWidth: {
+        "1.5": "1.5px",
         "2.5": "2.5px",
         "3": "3px",
       },

@@ -1,18 +1,35 @@
 import React from "react";
-import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button";
 import { Badge } from "./ui/badge";
+import { cn } from "@/lib/utils";
 
 export function Location() {
   const mapsUrl =
     "https://www.google.com/maps/search/?api=1&query=-1.200306,116.850389";
 
   return (
-    <section id="lokasi" className="bg-canvas-cream border-b-2.5 border-ink py-16 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
-      <div className="max-w-[1140px] mx-auto">
-        <div className="text-center mb-12">
+    <section id="lokasi" className="relative bg-[#FAF6EB] bg-neo-blueprint border-b-3 border-ink py-16 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
+      {/* Neubrutalist Decorative Background Shapes */}
+      <div
+        aria-hidden="true"
+        data-parallax="-0.12"
+        className="hidden sm:block pointer-events-none select-none absolute top-12 -left-4 w-14 h-14 bg-yellow-pop border-2.5 border-ink rounded-[8px] rotate-6 shadow-neo-xs"
+      />
+      <div
+        aria-hidden="true"
+        data-parallax="0.12"
+        className="hidden sm:block pointer-events-none select-none absolute bottom-12 -right-4 w-14 h-14 bg-brand-red border-2.5 border-ink rounded-[8px] -rotate-6 shadow-neo-xs"
+      />
+
+      <div className="max-w-[1140px] mx-auto relative z-10">
+        <div className="reveal-header text-center mb-12">
+          <div className="sticker-pop inline-flex items-center gap-2 bg-white text-ink border-2 border-ink px-3 py-1 rounded-[6px] shadow-neo-xs font-black text-xs mb-3">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 border border-ink" />
+            <span>07 // TITIK WORKSHOP</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-ink tracking-tight uppercase">
             KUNJUNGI{" "}
-            <span className="inline-block bg-yellow-pop text-ink px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm">
+            <span className="sticker-pop inline-block bg-yellow-pop text-ink px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm">
               WORKSHOP KAMI.
             </span>
           </h2>
@@ -26,7 +43,7 @@ export function Location() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Jadwal Operasional */}
-          <div className="reveal bg-white border-2.5 border-ink rounded-xl p-6 sm:p-8 flex flex-col justify-between shadow-neo-md hover:-translate-y-0.5 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop">
+          <div className="reveal reveal-left bg-white border-2.5 border-ink rounded-xl p-6 sm:p-8 flex flex-col justify-between shadow-neo-md hover:-translate-y-0.5 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop">
             <div>
               <Badge variant="dark" className="mb-4 text-sm py-1 px-3">
                 Jam Buka
@@ -36,26 +53,26 @@ export function Location() {
               </h3>
 
               <div className="flex flex-col gap-3 mb-6">
-                <div className="flex justify-between items-center p-4 bg-canvas-cream border-2 border-ink rounded-lg text-base">
+                <div className="cascade-item flex justify-between items-center p-4 bg-canvas-cream border-2 border-ink rounded-lg text-base">
                   <span className="font-extrabold text-ink">Selasa &ndash; Minggu</span>
                   <span className="font-bold text-ink">17.00 &ndash; 22.00 WITA</span>
                 </div>
                 {/* High contrast dark red 7.5:1 on bg-red-100 */}
-                <div className="flex justify-between items-center p-4 bg-red-100 border-2 border-ink rounded-lg text-base text-red-950 font-black">
+                <div className="cascade-item flex justify-between items-center p-4 bg-red-100 border-2 border-ink rounded-lg text-base text-red-950 font-black">
                   <span>Senin</span>
                   <span>Tutup</span>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 pt-4 text-sm sm:text-base text-gray-800">
+            <div className="cascade-item flex items-center gap-3 pt-4 text-sm sm:text-base text-gray-800">
               <span className="w-3 h-3 rounded-full bg-emerald-500 border border-ink inline-block shrink-0" />
               <span>Drop-off sepatu langsung diterima saat jam operasional buka</span>
             </div>
           </div>
 
           {/* Workshop Map Card */}
-          <div className="reveal bg-white border-2.5 border-ink rounded-xl p-6 sm:p-8 flex flex-col justify-between shadow-neo-md hover:-translate-y-0.5 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop">
+          <div className="reveal reveal-right bg-white border-2.5 border-ink rounded-xl p-6 sm:p-8 flex flex-col justify-between shadow-neo-md hover:-translate-y-0.5 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop">
             <div>
               <Badge variant="dark" className="mb-4 text-sm py-1 px-3">
                 Peta Navigasi
@@ -90,12 +107,14 @@ export function Location() {
               href={mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full"
+              id="btn-google-maps"
+              className={cn(
+                buttonVariants({ variant: "primary", size: "full" }),
+                "text-sm sm:text-base font-black px-4 py-3 flex items-center justify-center gap-2.5"
+              )}
             >
-              <Button variant="primary" size="full" className="text-sm sm:text-base font-black px-4 py-3 flex items-center justify-center gap-2.5" id="btn-google-maps">
-                <span>Buka Arah di Google Maps</span>
-                <span className="w-6 h-6 rounded-full bg-yellow-pop text-ink flex items-center justify-center shrink-0 text-xs font-black border border-ink shadow-neo-xs" aria-hidden="true">&rarr;</span>
-              </Button>
+              <span>Buka Arah di Google Maps</span>
+              <span className="w-6 h-6 rounded-full bg-yellow-pop text-ink flex items-center justify-center shrink-0 text-xs font-black border border-ink shadow-neo-xs" aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </div>

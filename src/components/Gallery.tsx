@@ -37,12 +37,28 @@ export function Gallery() {
   ];
 
   return (
-    <section id="galeri" className="bg-canvas-cream border-b-2.5 border-ink py-16 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
-      <div className="max-w-[1140px] mx-auto">
-        <div className="text-center mb-12">
+    <section id="galeri" className="relative bg-[#FAF6EB] bg-neo-dots border-b-3 border-ink py-16 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
+      {/* Neubrutalist Decorative Background Shapes */}
+      <div
+        aria-hidden="true"
+        data-parallax="-0.12"
+        className="hidden sm:block pointer-events-none select-none absolute top-14 -left-4 w-14 h-14 bg-brand-red border-2.5 border-ink rounded-[8px] rotate-12 shadow-neo-xs"
+      />
+      <div
+        aria-hidden="true"
+        data-parallax="0.12"
+        className="hidden sm:block pointer-events-none select-none absolute bottom-14 -right-4 w-16 h-16 bg-yellow-pop border-2.5 border-ink rounded-[8px] -rotate-6 shadow-neo-xs"
+      />
+
+      <div className="max-w-[1140px] mx-auto relative z-10">
+        <div className="reveal-header text-center mb-12">
+          <div className="sticker-pop inline-flex items-center gap-2 bg-white text-ink border-2 border-ink px-3 py-1 rounded-[6px] shadow-neo-xs font-black text-xs mb-3">
+            <span className="w-2 h-2 rounded-full bg-yellow-pop border border-ink" />
+            <span>03 // GALERI RESTORASI</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-ink tracking-tight uppercase">
             BUKTI SEBELUM &amp;{" "}
-            <span className="inline-block bg-yellow-pop text-ink px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm">
+            <span className="sticker-pop inline-block bg-yellow-pop text-ink px-3 py-0.5 border-2 border-ink rounded-sm shadow-neo-sm">
               SESUDAH.
             </span>
           </h2>
@@ -58,6 +74,7 @@ export function Gallery() {
           {items.map((item, idx) => (
             <div
               key={idx}
+              style={{ transitionDelay: `${(idx % 2) * 150}ms` }}
               className="reveal bg-white border-2.5 border-ink rounded-xl overflow-hidden shadow-neo-md hover:-translate-y-1 hover:shadow-neo-lg transition-all duration-300 ease-bounce-pop flex flex-col"
             >
               <div className="grid grid-cols-2 relative bg-gray-200 border-b-2.5 border-ink">
