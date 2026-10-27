@@ -14,6 +14,7 @@ export function Header() {
     { href: "#layanan", label: "Layanan" },
     { href: "#keunggulan", label: "Keunggulan" },
     { href: "#galeri", label: "Galeri" },
+    { href: "#testimoni", label: "Testimoni" },
     { href: "#antar-jemput", label: "Antar-Jemput" },
     { href: "#faq", label: "FAQ" },
     { href: "#lokasi", label: "Lokasi" },

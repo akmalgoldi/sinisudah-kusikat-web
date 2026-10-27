@@ -17,6 +17,7 @@
 # misc
 .DS_Store
 *.pem
+*.mp4
 
 # debug logs
 npm-debug.log*
@@ -28,6 +29,8 @@ yarn-error.log*
 
 # vercel
 .vercel
+.gemini/
+
 
 # typescript
 *.tsbuildinfo

@@ -5,6 +5,7 @@ import { Stats } from "@/components/Stats";
 import { Services } from "@/components/Services";
 import { Comparison } from "@/components/Comparison";
 import { Gallery } from "@/components/Gallery";
+import { Testimonials } from "@/components/Testimonials";
 import { Pickup } from "@/components/Pickup";
 import { Faq } from "@/components/Faq";
 import { Location } from "@/components/Location";
@@ -23,6 +24,7 @@ export default function Home() {
         <Services />
         <Comparison />
         <Gallery />
+        <Testimonials />
         <Pickup />
         <Faq />
         <Location />
