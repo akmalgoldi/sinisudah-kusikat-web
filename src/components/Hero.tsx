@@ -6,47 +6,39 @@ import { buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { SneakerComparisonSlider } from "./SneakerComparisonSlider";
 
-const TYPING_WORDS = [
-  "KAMI SIKAT.",
-  "DEEP CLEAN.",
-  "UNYELLOWING.",
-  "FAST CLEAN.",
-  "KINCLONG 100%.",
-];
+const TARGET_PHRASE = "SINI SUDAH, KUSIKAT!";
 
 export function Hero() {
   const showcaseRef = React.useRef<HTMLDivElement>(null);
   const textColRef = React.useRef<HTMLDivElement>(null);
-  const [wordIndex, setWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setDisplayedText(TYPING_WORDS[0]);
+      setDisplayedText(TARGET_PHRASE);
       return;
     }
 
-    const currentWord = TYPING_WORDS[wordIndex];
-    const isWordComplete = !isDeleting && displayedText === currentWord;
-    const isWordEmpty = isDeleting && displayedText === "";
-    const delay = isWordComplete ? 2000 : isDeleting ? 45 : 95;
+    const isPhraseComplete = !isDeleting && displayedText === TARGET_PHRASE;
+    const isPhraseEmpty = isDeleting && displayedText === "";
+    const delay = isPhraseComplete ? 2400 : isPhraseEmpty ? 450 : isDeleting ? 40 : 85;
 
     const timer = setTimeout(() => {
-      if (isWordComplete) {
+      if (isPhraseComplete) {
         setIsDeleting(true);
-      } else if (isWordEmpty) {
+      } else if (isPhraseEmpty) {
         setIsDeleting(false);
-        setWordIndex((prev) => (prev + 1) % TYPING_WORDS.length);
+        setDisplayedText(TARGET_PHRASE.substring(0, 1));
       } else if (!isDeleting) {
-        setDisplayedText(currentWord.substring(0, displayedText.length + 1));
+        setDisplayedText(TARGET_PHRASE.substring(0, displayedText.length + 1));
       } else {
-        setDisplayedText(currentWord.substring(0, displayedText.length - 1));
+        setDisplayedText(TARGET_PHRASE.substring(0, displayedText.length - 1));
       }
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, wordIndex]);
+  }, [displayedText, isDeleting]);
 
   useEffect(() => {
     // Parallax depth scroll effect
@@ -141,10 +133,10 @@ export function Hero() {
           {/* Main Display Headline with Typing Animation */}
           <h1 className="text-[2.2rem] min-[390px]:text-[2.5rem] sm:text-5xl lg:text-6xl font-black text-ink tracking-tight leading-[1.08]">
             <span className="block">SEPATU KOTOR?</span>
-            <span className="inline-flex items-center bg-yellow-pop text-ink px-3 sm:px-4 py-0.5 border-3 sm:border-4 border-ink rounded-md shadow-neo mt-1.5 sm:mt-2 -rotate-1 hover:rotate-0 transition-transform duration-200 cursor-default select-none whitespace-nowrap min-h-[1.22em] w-fit">
+            <span className="inline-flex items-center bg-yellow-pop text-ink text-[1.45rem] min-[375px]:text-[1.65rem] min-[410px]:text-[1.85rem] sm:text-5xl lg:text-[3.25rem] px-3 sm:px-4 py-1 border-3 sm:border-4 border-ink rounded-md shadow-neo mt-1.5 sm:mt-2 -rotate-1 hover:rotate-0 transition-transform duration-200 cursor-default select-none whitespace-nowrap min-h-[1.25em] w-fit">
               <span>{displayedText || "\u00A0"}</span>
               <span
-                className="inline-block w-[3px] sm:w-[4px] h-[0.75em] bg-ink ml-1.5 align-middle animate-pulse" /* taste-skill-ignore */
+                className="inline-block w-[3px] sm:w-[4px] h-[0.78em] bg-ink ml-1.5 align-middle animate-pulse" /* taste-skill-ignore */
                 aria-hidden="true"
               />
             </span>
