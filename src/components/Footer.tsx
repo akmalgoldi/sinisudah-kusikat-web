@@ -27,7 +27,7 @@ export function Footer() {
   return (
     <footer
       id="kontak"
-      className="bg-ink text-white border-t-3 border-ink w-full overflow-hidden"
+      className="bg-brand-red bg-neo-dots-strong text-ink border-t-3 border-ink w-full overflow-hidden"
     >
       {/* Neubrutalist Yellow Ticker Strip with proper spacing */}
       <div
@@ -48,10 +48,10 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Main Footer Content Container (extra pb on mobile so floating WA + Bottom Nav never overlap) */}
-      <div className="max-w-[1140px] mx-auto px-3.5 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-36 lg:pb-10">
+      {/* Main Footer Content Container */}
+      <div className="max-w-[1140px] mx-auto px-3.5 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-20 lg:pb-10">
         {/* High-Contrast Neubrutalist Dossier Board */}
-        <div className="reveal bg-[#FAF6EB] bg-neo-dots text-ink border-3 border-ink rounded-[12px] p-4 sm:p-6 lg:p-8 shadow-[5px_5px_0px_0px_#FFE600]"> {/* taste-skill-ignore */}
+        <div className="reveal bg-[#FAF6EB] bg-neo-dots text-ink border-3 border-ink rounded-[12px] p-4 sm:p-6 lg:p-8 shadow-[6px_6px_0px_0px_#111111]"> {/* taste-skill-ignore */}
           {/* Top Brand Header Strip */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 mb-5 border-b-2 border-ink">
             <div className="flex items-start sm:items-center gap-3">
@@ -258,7 +258,7 @@ export function Footer() {
 
               <Link
                 href="#hero"
-                className="mt-3 w-full bg-ink hover:bg-brand-red text-white border-2 border-ink rounded-[6px] py-2 px-3 text-xs font-black flex items-center justify-center gap-2 shadow-[2px_2px_0px_0px_#FFE600] active:translate-x-[1px] active:translate-y-[1px] transition-all" /* taste-skill-ignore */
+                className="mt-3 w-full bg-ink hover:bg-yellow-pop text-white hover:text-ink border-2 border-ink rounded-[6px] py-2 px-3 text-xs font-black flex items-center justify-center gap-2 shadow-[2px_2px_0px_0px_#111111] active:translate-x-[1px] active:translate-y-[1px] transition-all" /* taste-skill-ignore */
               >
                 <span>Kembali ke Atas</span>
                 <span aria-hidden="true">&uarr;</span>
@@ -267,13 +267,17 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Copyright & Location Line */}
-        <div className="mt-6 pt-4 border-t-2 border-white/15 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-xs font-bold text-gray-300">
+        {/* Framed Neubrutalist Copyright Bar */}
+        <div className="mt-5 bg-white border-2.5 border-ink rounded-[8px] px-4 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-xs font-extrabold text-ink shadow-[4px_4px_0px_0px_#111111]"> {/* taste-skill-ignore */}
           <p>
-            &copy; 2026 <span className="text-yellow-pop font-black">Sinisudah.Kusikat</span> Balikpapan. Seluruh hak cipta dilindungi.
+            &copy; 2026{" "}
+            <span className="bg-yellow-pop px-1.5 py-0.5 rounded-[4px] border border-ink font-black">
+              Sinisudah.Kusikat
+            </span>{" "}
+            Balikpapan. Seluruh hak cipta dilindungi.
           </p>
-          <p className="inline-flex items-center gap-2 text-gray-400">
-            <span className="w-2 h-2 rounded-full bg-brand-red inline-block" />
+          <p className="inline-flex items-center gap-1.5 text-ink font-black">
+            <span className="w-2.5 h-2.5 rounded-full bg-brand-red border border-ink inline-block" />
             <span>Balikpapan, Kalimantan Timur</span>
           </p>
         </div>

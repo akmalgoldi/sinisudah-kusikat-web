@@ -77,6 +77,7 @@ function computeWitaShopStatus(): ShopStatusInfo {
 
 export function Header() {
   const [activeSection, setActiveSection] = useState("#hero");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [shopStatus, setShopStatus] = useState<ShopStatusInfo>({
     isOpen: true,
     mobileText: "17.00–22.00 WITA",
@@ -88,7 +89,7 @@ export function Header() {
   const waUrl =
     "https://wa.me/6285348085177?text=Halo%20Sinisudah.Kusikat%2C%20saya%20ingin%20berkonsultasi%20mengenai%20layanan%20cuci%20sepatu.";
 
-  const desktopLinks = [
+  const navLinks = [
     { href: "#layanan", label: "Layanan" },
     { href: "#keunggulan", label: "Keunggulan" },
     { href: "#galeri", label: "Galeri" },
@@ -96,58 +97,6 @@ export function Header() {
     { href: "#antar-jemput", label: "Antar-Jemput" },
     { href: "#faq", label: "FAQ" },
     { href: "#lokasi", label: "Lokasi" },
-  ];
-
-  const mobileBottomItems = [
-    {
-      href: "#hero",
-      label: "Beranda",
-      icon: (
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z" />
-        </svg>
-      ),
-    },
-    {
-      href: "#layanan",
-      label: "Layanan",
-      icon: (
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
-          <circle cx="7" cy="7" r="1.5" fill="currentColor" />
-        </svg>
-      ),
-    },
-    {
-      href: "#galeri",
-      label: "Galeri",
-      icon: (
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="3" />
-          <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" />
-          <path d="M21 15l-5-5L5 21" />
-        </svg>
-      ),
-    },
-    {
-      href: "#testimoni",
-      label: "Ulasan",
-      icon: (
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
-      ),
-    },
-    {
-      href: "#lokasi",
-      label: "Lokasi",
-      icon: (
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-          <circle cx="12" cy="10" r="3" />
-        </svg>
-      ),
-    },
   ];
 
   // Update WITA shop status on client mount & every 60s
@@ -159,12 +108,40 @@ export function Header() {
     return () => clearInterval(timer);
   }, []);
 
+  // Close mobile menu on Escape key or when resizing to desktop
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   // Track active section while scrolling
   useEffect(() => {
-    const sectionIds = ["hero", "layanan", "galeri", "testimoni", "lokasi"];
+    const sectionIds = [
+      "hero",
+      "layanan",
+      "keunggulan",
+      "galeri",
+      "testimoni",
+      "antar-jemput",
+      "faq",
+      "lokasi",
+    ];
 
     const handleScroll = () => {
-      // Ensure "Lokasi" activates reliably when scrolled to the bottom of the page
       if (
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 80
@@ -190,10 +167,15 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleMobileNavClick = (href: string) => {
+    setActiveSection(href);
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <>
       {/* =====================================================================
-          1. TOP HEADER BAR (Brand Left + Nav Dock Center + Live Status Right)
+          1. TOP HEADER BAR (Brand Left + Nav Dock Center + Status & Hamburger Right)
           ===================================================================== */}
       <header
         data-ui="site-header"
@@ -203,7 +185,7 @@ export function Header() {
           {/* Left: Unified Brand Identity */}
           <Link
             href="#hero"
-            onClick={() => setActiveSection("#hero")}
+            onClick={() => handleMobileNavClick("#hero")}
             className="group inline-flex items-center gap-2 sm:gap-2.5 shrink-0 focus:outline-none"
             aria-label="Sinisudah.Kusikat Beranda"
           >
@@ -229,39 +211,155 @@ export function Header() {
             className="hidden lg:flex items-center gap-1 bg-[#FAF6EB] border-2 border-ink rounded-[8px] p-1 shadow-[3px_3px_0px_0px_#111111]" /* taste-skill-ignore */
             aria-label="Navigasi Utama Desktop"
           >
-            {desktopLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-3 py-1.5 rounded-[5px] font-extrabold text-sm text-ink border-2 border-transparent hover:border-ink hover:bg-yellow-pop hover:shadow-[2px_2px_0px_0px_#111111] hover:-translate-y-0.5 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-[transform,background-color,border-color,box-shadow] duration-150 whitespace-nowrap" /* taste-skill-ignore */
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setActiveSection(link.href)}
+                  className={`px-3 py-1.5 rounded-[5px] font-extrabold text-sm text-ink border-2 transition-[transform,background-color,border-color,box-shadow] duration-150 whitespace-nowrap ${
+                    isActive
+                      ? "bg-yellow-pop border-ink shadow-[2px_2px_0px_0px_#111111]" /* taste-skill-ignore */
+                      : "border-transparent hover:border-ink hover:bg-yellow-pop hover:shadow-[2px_2px_0px_0px_#111111] hover:-translate-y-0.5" /* taste-skill-ignore */
+                  } active:translate-x-[1px] active:translate-y-[1px] active:shadow-none`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Right: Live Operational Status Badge (Links to #lokasi) */}
-          <Link
-            href="#lokasi"
-            onClick={() => setActiveSection("#lokasi")}
-            title="Lihat Lokasi & Jam Operasional Workshop"
-            className={`h-9 sm:h-10 inline-flex items-center justify-center gap-1.5 ${shopStatus.badgeBg} text-ink border-2 border-ink rounded-[6px] px-2.5 sm:px-3.5 font-black text-[11px] sm:text-xs shadow-[2.5px_2.5px_0px_0px_#111111] hover:bg-yellow-pop hover:-translate-y-0.5 active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-none transition-[transform,background-color,box-shadow] duration-150 whitespace-nowrap shrink-0`} /* taste-skill-ignore */
-          >
-            <span
-              className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${shopStatus.dotColor} border border-ink shrink-0`}
-            />
-            <span className="sm:hidden">{shopStatus.mobileText}</span>
-            <span className="hidden sm:inline">{shopStatus.desktopText}</span>
-          </Link>
+          {/* Right: Live Operational Status Badge + Mobile Neubrutalism Hamburger Button */}
+          <div className="flex items-center gap-2 shrink-0">
+            <Link
+              href="#lokasi"
+              onClick={() => handleMobileNavClick("#lokasi")}
+              title="Lihat Lokasi & Jam Operasional Workshop"
+              className={`h-9 sm:h-10 inline-flex items-center justify-center gap-1.5 ${shopStatus.badgeBg} text-ink border-2 border-ink rounded-[6px] px-2 sm:px-3.5 font-black text-[11px] sm:text-xs shadow-[2.5px_2.5px_0px_0px_#111111] hover:bg-yellow-pop hover:-translate-y-0.5 active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-none transition-[transform,background-color,box-shadow] duration-150 whitespace-nowrap shrink-0`} /* taste-skill-ignore */
+            >
+              <span
+                className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${shopStatus.dotColor} border border-ink shrink-0`}
+              />
+              <span className="sm:hidden">{shopStatus.mobileText}</span>
+              <span className="hidden sm:inline">{shopStatus.desktopText}</span>
+            </Link>
+
+            {/* Mobile Hamburger Button (Neubrutalism Tactile Keycap) */}
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-dropdown-menu"
+              aria-label={isMobileMenuOpen ? "Tutup Menu Navigasi" : "Buka Menu Navigasi"}
+              className={`lg:hidden w-9 h-9 sm:w-10 sm:h-10 inline-flex items-center justify-center rounded-[6px] border-2 border-ink shadow-[2.5px_2.5px_0px_0px_#111111] active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-none transition-[transform,background-color,box-shadow] duration-150 cursor-pointer shrink-0 ${ /* taste-skill-ignore */
+                isMobileMenuOpen
+                  ? "bg-brand-red text-white"
+                  : "bg-yellow-pop text-ink hover:bg-[#FFF04D]"
+              }`}
+            >
+              <svg
+                className="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.75}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                {isMobileMenuOpen ? (
+                  <>
+                    <path d="M18 6L6 18" />
+                    <path d="M6 6l12 12" />
+                  </>
+                ) : (
+                  <>
+                    <path d="M4 7h16" />
+                    <path d="M4 12h16" />
+                    <path d="M4 17h16" />
+                  </>
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
+
+        {/* ===================================================================
+            2. MOBILE NEUBRUTALIST HAMBURGER DROPDOWN DRAWER
+            =================================================================== */}
+        {isMobileMenuOpen && (
+          <nav
+            id="mobile-dropdown-menu"
+            aria-label="Menu Navigasi Mobile"
+            className="lg:hidden border-t-3 border-ink bg-[#FAF6EB] bg-neo-dots px-3.5 sm:px-6 py-4 shadow-[0px_6px_0px_0px_#111111]" /* taste-skill-ignore */
+          >
+            <div className="max-w-[1280px] mx-auto flex flex-col gap-3">
+              {/* 2-Column Tactile Grid of Navigation Links */}
+              <div className="grid grid-cols-2 gap-2">
+                {navLinks.map((link, idx) => {
+                  const isActive = activeSection === link.href;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => handleMobileNavClick(link.href)}
+                      className={`flex items-center justify-between gap-2 px-3 py-2.5 rounded-[6px] border-2 border-ink font-black text-xs sm:text-sm shadow-[2px_2px_0px_0px_#111111] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-[transform,background-color,box-shadow] duration-150 ${ /* taste-skill-ignore */
+                        idx === navLinks.length - 1 ? "col-span-2" : ""
+                      } ${
+                        isActive
+                          ? "bg-yellow-pop text-ink"
+                          : "bg-white text-ink hover:bg-yellow-pop"
+                      }`}
+                    >
+                      <span className="inline-flex items-center gap-2 truncate">
+                        <span
+                          className={`w-2 h-2 rounded-full border border-ink shrink-0 ${
+                            isActive ? "bg-brand-red" : "bg-yellow-pop"
+                          }`}
+                        />
+                        <span className="truncate">{link.label}</span>
+                      </span>
+                      <span className="text-xs font-black shrink-0">&rarr;</span>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Bottom Workshop Info Strip inside Mobile Menu */}
+              <div className="bg-white border-2 border-ink rounded-[6px] px-3 py-2 flex items-center justify-between gap-2 shadow-[2px_2px_0px_0px_#111111]"> {/* taste-skill-ignore */}
+                <div className="flex items-center gap-2 min-w-0">
+                  <span
+                    className={`w-2.5 h-2.5 rounded-full ${shopStatus.dotColor} border border-ink shrink-0`}
+                  />
+                  <span className="text-xs font-extrabold text-ink truncate">
+                    Selasa&ndash;Minggu &bull; 17.00&ndash;22.00 WITA
+                  </span>
+                </div>
+                <span className="bg-red-100 text-red-950 border border-ink rounded-[4px] px-1.5 py-0.5 text-[10px] font-black shrink-0">
+                  Senin Libur
+                </span>
+              </div>
+            </div>
+          </nav>
+        )}
       </header>
 
+      {/* Click-outside Backdrop when Mobile Hamburger Menu is Open */}
+      {isMobileMenuOpen && (
+        <div
+          aria-hidden="true"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="fixed inset-0 top-16 sm:top-[74px] z-30 bg-ink/35 lg:hidden"
+        />
+      )}
+
       {/* =====================================================================
-          2. FLOATING WHATSAPP ACTION BUTTON (Positioned Above Bottom Dock on Mobile)
+          3. FLOATING WHATSAPP ACTION BUTTON
           ===================================================================== */}
       <div
         data-ui="floating-wa"
-        className="fixed bottom-[82px] right-3 sm:right-6 lg:bottom-6 lg:right-8 z-50"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-6 lg:right-8 z-50"
       >
         <a
           href={waUrl}
@@ -296,41 +394,6 @@ export function Header() {
           </svg>
         </a>
       </div>
-
-      {/* =====================================================================
-          3. MOBILE FLOATING BOTTOM NAVIGATION DOCK (Neubrutalism Capsule)
-          ===================================================================== */}
-      <nav
-        data-ui="mobile-bottom-nav"
-        aria-label="Navigasi Bawah Mobile"
-        className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 lg:hidden w-[calc(100%-24px)] max-w-[390px] bg-yellow-pop border-3 border-ink rounded-full p-1.5 shadow-[4px_4px_0px_0px_#111111]" /* taste-skill-ignore */
-      >
-        <div className="grid grid-cols-5 gap-1 items-center">
-          {mobileBottomItems.map((item) => {
-            const isActive = activeSection === item.href;
-
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setActiveSection(item.href)}
-                className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-full border-2 transition-[transform,background-color,border-color,box-shadow] duration-150 select-none ${
-                  isActive
-                    ? "bg-white text-ink border-ink shadow-[2px_2px_0px_0px_#111111] -translate-y-0.5" /* taste-skill-ignore */
-                    : "bg-transparent text-ink/80 border-transparent hover:text-ink active:scale-95"
-                }`}
-              >
-                <span className={isActive ? "text-brand-red" : "text-ink"}>
-                  {item.icon}
-                </span>
-                <span className="text-[10px] font-black leading-tight mt-0.5 tracking-tight">
-                  {item.label}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
     </>
   );
 }

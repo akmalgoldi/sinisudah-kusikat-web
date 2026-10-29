@@ -63,7 +63,7 @@ const HOTSPOTS: HotspotPin[] = [
 
 export function SneakerComparisonSlider() {
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const [isClean, setIsClean] = useState(true);
+  const [isClean, setIsClean] = useState(false);
   const [activePinId, setActivePinId] = useState<string>("upper");
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
